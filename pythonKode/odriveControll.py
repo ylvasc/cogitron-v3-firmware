@@ -73,6 +73,18 @@ def move_relative():
 #funksjon for å bevege arm til sted i kordinatsystem
 def inverse_kinematics():
     print("inverse kinematics")
+   
+def move_to_pos(x,y):      #input x-koordinat, y- koordinat, x>0 ##Dette er invers kinematikk funksjonen
+    a1=1  #[meter]  lengde skulder-albue
+    a2=1  #[meter]  lengde albue-hånd
+    r=np.sqrt(x**2 + y**2)
+    print((r**2- a1**2 - a2**2)/(-2 *a1 *a2))
+    phi1=np.arccos((r**2- a1**2 - a2**2)/(-2 *a1 *a2))
+    phi2=np.arctan(y/x)
+    phi3 = np.arccos((a2 ** 2 - a1 ** 2 - r ** 2) / (-2 * a1 * r))
+    v1=phi2-phi1  #vinkel til skulder motor
+    v2=np.pi-phi3   #vinkel til albue motor
+    return v1/(2*np.pi), v2/(2*np.pi)  #output i turns
 
 def main():
     #konfigurer motorene
